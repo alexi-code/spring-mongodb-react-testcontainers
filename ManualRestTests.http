@@ -3,6 +3,9 @@
 ### Return all list of ontology Ids from the local MongoDB
 GET http://localhost:8080/api/ontology
 
+### Return all ontologies from the local MongoDB (DTOs)
+GET http://localhost:8080/api/ontology/detailed
+
 ### Return the specific ontology
 GET http://localhost:8080/api/ontology/impossibleontology
 

@@ -53,6 +53,7 @@ public class OntologyServiceImpl implements OntologyService {
         this.ontologyRepository = ontologyRepository;
     }
 
+    @Override
     public Mono<OntologyDto> getByOntologyId(String ontologyId) {
         log.info("{} getByOntologyId: id={}", SN, ontologyId);
         return ontologyRepository.findFirstByOntologyId(ontologyId)
@@ -70,6 +71,7 @@ public class OntologyServiceImpl implements OntologyService {
     }
 
     @SuppressWarnings("java:S5411")
+    @Override
     public Mono<OntologyDto> createOntology(OntologyDto ontologyDto) {
         if (ontologyDto.getOntologyId().isEmpty()) {
             return Mono.error(new BadRequestException("Not possible to create ontology without id"));
@@ -87,8 +89,14 @@ public class OntologyServiceImpl implements OntologyService {
         return ontologyRepository.findAll().map(Ontology::getOntologyId);
     }
 
+    @Override
     public Map<String, List<String>> listAllOntologyIdsJson() {
         return Collections.singletonMap("ontologyIds", listAllOntologyIds().collectList().block());
+    }
+
+    @Override
+    public Flux<OntologyDto> listAllOntologies() {
+        return ontologyRepository.findAll().map(OntologyMapper::toDto);
     }
 
     private Mono<OntologyDto> retrieveOntologyFromOLS(String ontologyId) {

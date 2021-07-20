@@ -80,7 +80,7 @@ class OntologyTest {
     }
 
     /**
-     * When counting of existing documents then 1.
+     * When counting of existing ids then 1.
      */
     @Test
     void When_countingOfExistingDocuments_Then_1() {
@@ -93,6 +93,19 @@ class OntologyTest {
     @Test
     void When_getByIdExists_Then_Dto() {
         Assertions.assertEquals("Test description 1", ontologyService.getByOntologyId("testId_1").block().getDescription());
+    }
+
+    /**
+     * When retrieve all ontologies from local db then list of DTOs.
+     */
+    @Test
+    void When_retrieveAllOntologiesFromLocalDB_Then_ListOfDto() {
+        webTestClient
+            .get()
+            .uri(API_ROOT + "/detailed")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectBodyList(OntologyDto.class);
     }
 
     /**

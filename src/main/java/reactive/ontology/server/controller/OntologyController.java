@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -37,6 +38,13 @@ public class OntologyController {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(ontologyService.createOntology(ontologyDto));
+    }
+
+    @GetMapping("/detailed")
+    public ResponseEntity<Flux<OntologyDto>> listOntologies() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ontologyService.listAllOntologies());
     }
 
     @GetMapping()
