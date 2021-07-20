@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+
+  reactive-ontology-mongo:
+    image: mongo
+    container_name: ontology_mongodb
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: ontologydb
+  mongoClientTemp:
+    image: mongo:latest
+    container_name: mongoClientTemp
+    links:
+      - reactive-ontology-mongo:mongo
+    command: mongo --host mongo --eval  "db.getSiblingDB('ontologydb').createUser({user:'ontologydbadmin', pwd:'ontologydbpassword', roles:[
+        {role:'readWrite',db:'ontologydb'},
+        {role:'userAdminAnyDatabase',db:'admin'},
+        {role:'readWriteAnyDatabase',db:'admin'},
+        {role:'dbAdminAnyDatabase',db:'admin'}]});"
+    depends_on:
+      - reactive-ontology-mongo

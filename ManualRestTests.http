@@ -1,0 +1,25 @@
+### These tests to run in IntelliJ IDEA IDE, alternatively to Postman
+
+### Return all list of ontology Ids from the local MongoDB
+GET http://localhost:8080/api/ontology
+
+### Return the specific ontology
+GET http://localhost:8080/api/ontology/impossibleontology
+
+### Return the specific ontology
+GET http://localhost:8080/api/ontology/test1
+
+### Return the specific from OLS (e.g. "efo" or "mondo")
+GET http://localhost:8080/api/ontology/efo
+
+### Post the new ontology
+POST http://localhost:8080/api/ontology
+Content-Type: application/json
+
+{
+  "ontologyId": "test4",
+  "title": "testOntology",
+  "description": "testOntologyDescription",
+  "definitionProperties": ["definitionProperty1, definitionProperty2"],
+  "synonymProperties": ["synonymProperty1, synonymProperty2", "synonymProperty3"]
+}
