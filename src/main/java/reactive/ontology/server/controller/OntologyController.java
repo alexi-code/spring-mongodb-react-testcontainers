@@ -1,5 +1,6 @@
 package reactive.ontology.server.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import reactive.ontology.server.dto.OntologyDto;
 import reactive.ontology.server.service.OntologyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api/ontology")
 public class OntologyController {
